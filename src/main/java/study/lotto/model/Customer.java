@@ -30,12 +30,15 @@ public class Customer {
 
     private void buyAutoTicketBundle(final LottoStore lottoStore) {
         final OrderResult orderResult = lottoStore.orderAutoTicketLotteryBundle(money);
-        this.money = orderResult.changeMoney(money);
-        orderResult.merge(ticketLotteryBundle);
+        change(orderResult);
     }
 
     private void buyManualTicketBundle(final LottoStore lottoStore) {
         final OrderResult orderResult = lottoStore.orderManualTicketLotteryBundle(orderManualTicketLotteryBundle);
+        change(orderResult);
+    }
+
+    private void change(OrderResult orderResult) {
         this.money = orderResult.changeMoney(money);
         orderResult.merge(ticketLotteryBundle);
     }

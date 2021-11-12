@@ -3,6 +3,7 @@ package study.lotto.model;
 import study.lotto.model.exception.MalFormedLottoNumberException;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class LottoNumber {
 
@@ -18,11 +19,9 @@ public class LottoNumber {
     }
 
     public static LottoNumber valueOf(final int lottoNumber) {
-
         if (LottoNumberCache.low <= lottoNumber && lottoNumber <= LottoNumberCache.high) {
-            LottoNumberCache.cache.get(lottoNumber);
+            return LottoNumberCache.cache.get(lottoNumber);
         }
-
         return new LottoNumber(lottoNumber);
     }
 
@@ -37,16 +36,16 @@ public class LottoNumber {
     }
 
     private static class LottoNumberCache {
-        static final HashMap<Integer, LottoNumber> cache;
+        static final Map<Integer, LottoNumber> cache;
         static int low = MIN_NUMBER;
         static int high = MAX_NUMBER;
 
         static {
-            final HashMap<Integer, LottoNumber> _cache = new HashMap<>();
+            final Map<Integer, LottoNumber> initCache = new HashMap<>();
             for (int i = low; i <= high; i++) {
-                _cache.put(i, new LottoNumber(i));
+                initCache.put(i, new LottoNumber(i));
             }
-            cache = _cache;
+            cache = initCache;
         }
     }
 

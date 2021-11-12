@@ -50,19 +50,9 @@ public class WinningLottery implements LotteryMatchAble {
     }
 
     private int getMatchCount(final TicketLottery ticketLottery) {
-        final Set<LottoNumber> ticketLotteryLottoNumbers = ticketLottery.getLottoNumbers();
-        int matchCount = 0;
-        for (final LottoNumber ticketLotteryLottoNumber : ticketLotteryLottoNumbers) {
-            matchCount = plusIfContains(ticketLotteryLottoNumber, matchCount);
-        }
-        return matchCount;
-    }
-
-    private int plusIfContains(final LottoNumber lottoNumber, int matchCount) {
-        if (lottery.contains(lottoNumber)) {
-            matchCount++;
-        }
-        return matchCount;
+        return (int) ticketLottery.getLottoNumbers().stream()
+                .filter(lottery::contains)
+                .count();
     }
 
     public boolean isMatchBonusNumber(final TicketLottery ticketLottery) {
